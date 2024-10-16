@@ -36,8 +36,11 @@ const Grid = () => {
         style={{
           cursor:
             mode === "color"
-              ? "url('/public/brush.png') 16 16, auto"
-              : "url('/public/eraser.png')16 16, auto",
+              ? "url('/brush.png') 16 16, auto"
+              : "url('/eraser.png')16 16, auto",
+          // display: "grid",
+          // gridTemplateColumns: `repeat(auto-fill, minmax(${cellWidth}px, 1fr))`,
+          // gridTemplateRows: `repeat(auto-fill, minmax(${cellHeight}px, 1fr))`,
         }}
       >
         {numberOfCells.map((_, i) => (

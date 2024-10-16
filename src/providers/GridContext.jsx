@@ -43,6 +43,41 @@ const GridProvider = ({ children }) => {
       return newColors;
     });
   };
+
+  //salvare il disegno
+  const saveGridAsImage = () => {
+
+    
+    //creo un canvas
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    //ottengo le dimensioni della grigia
+    const gridWidth = Math.sqrt(numberOfCells.length);
+    canvas.width = gridWidth * cellWidth;
+    canvas.height = gridWidth * cellHeight;
+
+    //disegno tutte le celle nel canvas
+    numberOfCells.forEach((_, i) => {
+      const color = cellColors[i] || "#FFFFFF"; 
+      const x = (i % gridWidth) * cellWidth;
+      const y = Math.floor(i / gridWidth) * cellHeight;
+
+      // Disegno la cella sul canvas
+      context.fillStyle = color;
+      context.fillRect(x, y, cellWidth, cellHeight);
+    });
+
+    const image = canvas.toDataURL("image/png");
+
+    // Creo un link per scaricare l'immagine
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "grid-drawing.png"; // Nome del file salvato
+    document.body.appendChild(link); 
+    link.click(); 
+    document.body.removeChild(link); 
+  }
   
 
   return (
@@ -61,6 +96,7 @@ const GridProvider = ({ children }) => {
         cellColors,
         setCellColors,
         calculateCells,
+        saveGridAsImage
       }}
     >
       {children}

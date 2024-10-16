@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-root {
+:root {
   --white: #f2f2ee;
+  --beige: #b4b09f;
+  --pink: #90656a;
+  --blue: #8895a1;
+  --green: #1e211d;
+}
+
+body {
+  overflow: hidden;
 }

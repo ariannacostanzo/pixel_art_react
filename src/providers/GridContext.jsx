@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import useStorage from "../hooks/useStorage";
 
 const GridContext = createContext();
 
@@ -8,8 +9,17 @@ const GridProvider = ({ children }) => {
   const [cellHeight, setCellHeight] = useState(40);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-  const [numberOfCells, setNumberOfCells] = useState([]);
-  const [cellColors, setCellColors] = useState([]);
+  const [numberOfCells, setNumberOfCells] = useStorage([], "numberOfCells");
+  // const [cellColors, setCellColors] = useStorage(() => {
+  //   const itemValue = localStorage.getItem("cellColors");
+  //   // Se non ci sono colori salvati, ritorna un array di bianchi di lunghezza numberOfCells
+  //   if (!itemValue) {
+  //     return new Array(numberOfCells.length).fill("#FFFFFF");
+  //   } else {
+  //     return JSON.parse(itemValue)
+  //   }
+  // }, "cellColors");
+  const [cellColors, setCellColors] = useStorage(["FFFFFF"], 'cellColors')
 
   //controllo il cambio della finestra
   const handleResize = () => {
@@ -26,15 +36,13 @@ const GridProvider = ({ children }) => {
 
     setNumberOfCells(Array.from({ length: totalCells }));
     setCellColors((prevColors) => {
-      const newColors = [...prevColors];
-
-      if (newColors.length < totalCells) {
-        newColors.length = totalCells;
-        newColors.fill("#FFFFFF", prevColors.length);
-      } else {
-        newColors.length = totalCells;
+      // Se prevColors ha già il numero corretto di celle, ritorna quello
+      if (prevColors.length === totalCells) {
+        return prevColors;
       }
-      return newColors;
+
+      // Altrimenti, ritorna un nuovo array pieno di #FFFFFF
+      return new Array(totalCells).fill("#FFFFFF");
     });
   };
 

@@ -13,6 +13,8 @@ const Grid = () => {
     numberOfCells,
     calculateCells,
     cellColors,
+    setCellColors,
+    totalCells
   } = useGrid();
   const { colorCell } = useColor();
 
@@ -27,6 +29,9 @@ const Grid = () => {
   useEffect(() => {
     calculateCells();
   }, []);
+
+//modificare le celle, fare in modo che attraverso degli scaglioni ci sia un certo
+//numero fisso di celle, altrimenti i colori sono sempre sovrascritti
 
   return (
     <>

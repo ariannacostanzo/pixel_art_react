@@ -1,25 +1,27 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useGrid } from './GridContext.jsx';
+import useStorage from "../hooks/useStorage.js";
 
 const ColorContext = createContext();
 
 const ColorProvider = ({ children }) => {
 
-    const { setCellColors } = useGrid();
+    const { setCellColors , cellColors} = useGrid();
   //logica colore
-  const [currentColor, setCurrentColor] = useState("#FFFFFF");
+  const [currentColor, setCurrentColor] = useStorage("#FFFFFF", 'selectedColor');
 
   const choseColor = (e) => {
     setCurrentColor(e.target.value);
   };
 
   const colorCell = (i) => {
-    console.log(currentColor, i);
     setCellColors((prev) => {
+      console.log(cellColors)
       const newColors = [...prev];
       newColors[i] = currentColor;
       return newColors;
     });
+
   };
 
   return (

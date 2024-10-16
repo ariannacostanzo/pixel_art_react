@@ -8,8 +8,10 @@
   --pink: #90656a;
   --blue: #8895a1;
   --green: #1e211d;
+  --light-green: #404b3c;
 }
 
 body {
   overflow: hidden;
+  font-family: "Dosis", sans-serif;
 }

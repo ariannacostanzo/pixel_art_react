@@ -1,33 +1,45 @@
 import "./header.scss";
 import { useColor } from "../../providers/ColorContext.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
 const Header = () => {
   const { choseColor, currentColor, clearCells, choseErasor, mode } =
     useColor();
 
-  useEffect(() => {
-    console.log(mode);
-  }, [mode]);
-
   return (
     <>
       <header>
-        <h1 className="text-3xl">Pixel Art</h1>
+        <h1 className="text-4xl">Pixel Art</h1>
         <div className="flex gap-4 items-center">
           {/* svuota celle  */}
           <div onClick={clearCells} className="cursor-pointer">
-            <Tooltip icon={faFile} text="Cancella tutto"></Tooltip>
+            <Tooltip
+              icon={faTrashCan}
+              text="Svuota la griglia"
+              chosen="ignore"
+            ></Tooltip>
+          </div>
+          <div className="px-4">
+            Modalità: {mode === "color" ? "Colora" : "Cancella"}
+          </div>
+
+          {/* cancella una cella  */}
+          <div onClick={choseErasor}>
+            <Tooltip
+              icon={faEraser}
+              text="cancella"
+              chosen={mode === "color" ? false : true}
+            ></Tooltip>
           </div>
           {/* color picker  */}
-          <div>
-            <label htmlFor="colorPalette" className="mr-2">
-              <Tooltip icon={faPen} text="Scegli il colore"></Tooltip>
-            </label>
+          <div className="flex items-center" onClick={choseColor}>
+            <Tooltip
+              icon={faPen}
+              text="colora"
+              chosen={mode === "color" ? true : false}
+            ></Tooltip>
 
             <input
               id="colorPalette"
@@ -36,12 +48,6 @@ const Header = () => {
               value={currentColor}
             />
           </div>
-          <div onClick={choseErasor}>
-            <Tooltip icon={faEraser} text="Cancella"></Tooltip>
-            Cancella
-            <FontAwesomeIcon icon={faEraser} className="ml-2"></FontAwesomeIcon>
-          </div>
-          <div>Modalità: {mode === "color" ? "Colora" : "Cancella"}</div>
         </div>
       </header>
     </>

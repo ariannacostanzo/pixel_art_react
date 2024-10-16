@@ -4,14 +4,13 @@
   position: relative;
   transition: all 0.2s;
   font-size: 17px;
-  padding: 1rem 0;
-  width: fit-content;
   box-sizing: border-box;
-  --bg: linear-gradient(135deg, #a940fd, #5b46e8);
+  --bg: linear-gradient(135deg, var(--beige), var(--pink));
   --color: #fff;
-  --tooltip-bg: #303030;
+  --tooltip-bg: var(--light-green);
   --tooltip-color: #fff;
   --margin: 0.5rem;
+  
 }
 
 .text {
@@ -20,25 +19,34 @@
   color: var(--color);
   padding: 0.7em 1.8em;
   border-radius: 0.75rem;
-  height: fit-content;
+  display: inline-block;
+  width: 78px;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 4px 16px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 5px 1px black ;
+
+  &:active {
+    scale: .9;
+  }
 }
 
 .tooltip {
   position: absolute;
-  top: calc(-1 * var(--margin));
+  bottom: -10px;
+  width: 120px;
   left: 50%;
   transform: translateX(-50%) translateY(0%) scale(0);
-  padding: 0.3em 0.6em;
+  padding: 1rem ;
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s;
   background: var(--tooltip-bg);
   color: var(--tooltip-color);
   border-radius: 0.5rem;
-  z-index: 99999;
+  z-index: 2;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .tooltip::before {
@@ -46,7 +54,7 @@
   content: "";
   height: 0.6em;
   width: 0.6em;
-  bottom: -0.2em;
+  top: -0.2em;
   left: 50%;
   transform: translate(-50%) rotate(45deg);
   background: var(--tooltip-bg);
@@ -57,5 +65,5 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(-100%) scale(1);
+  transform: translateX(-50%) translateY(100%) scale(1);
 }

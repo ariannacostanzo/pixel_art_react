@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Grid from "./components/grid/Grid";
 import Header from "./components/header/Header";
+import { GridProvider } from "./providers/GridContext";
+import { ColorProvider } from "./providers/ColorContext";
 
 function App() {
   //logica colore
@@ -41,24 +43,38 @@ function App() {
     const totalCells = columns * rows;
 
     setNumberOfCells(Array.from({ length: totalCells }));
-    setCellColors(Array(totalCells).fill('#FFFFFF'))
+    setCellColors((prevColors) => {
+      const newColors = [...prevColors];
+
+      if (newColors.length < totalCells) {
+        newColors.length = totalCells; 
+        newColors.fill("#FFFFFF", prevColors.length); 
+      } else {
+        newColors.length = totalCells;
+      }
+      return newColors;
+    });
   };
 
   return (
     <>
-      <Header currentColor={currentColor} choseColor={choseColor}></Header>
+      <GridProvider>
+        <ColorProvider>
+          <Header currentColor={currentColor} choseColor={choseColor}></Header>
 
-      <Grid
-        handleResize={handleResize}
-        screenWidth={screenWidth}
-        screenHeight={screenHeight}
-        cellWidth={cellWidth}
-        cellHeight={cellHeight}
-        numberOfCells={numberOfCells}
-        calculateCells={calculateCells}
-        colorCell={colorCell}
-        cellColors={cellColors}
-      ></Grid>
+          <Grid
+            handleResize={handleResize}
+            screenWidth={screenWidth}
+            screenHeight={screenHeight}
+            cellWidth={cellWidth}
+            cellHeight={cellHeight}
+            numberOfCells={numberOfCells}
+            calculateCells={calculateCells}
+            colorCell={colorCell}
+            cellColors={cellColors}
+          ></Grid>
+        </ColorProvider>
+      </GridProvider>
     </>
   );
 }

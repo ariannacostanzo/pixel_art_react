@@ -11,6 +11,7 @@ const GridProvider = ({ children }) => {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [numberOfCells, setNumberOfCells] = useStorage([], "numberOfCells");
   const [cellColors, setCellColors] = useStorage([], 'cellColors')
+  
 
   //controllo il cambio della finestra
   //forse da eliminare
@@ -42,6 +43,7 @@ const GridProvider = ({ children }) => {
       return newColors;
     });
   };
+  
 
   return (
     <GridContext.Provider

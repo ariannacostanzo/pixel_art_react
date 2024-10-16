@@ -12,6 +12,7 @@ const ColorProvider = ({ children }) => {
     "selectedColor"
   );
   const [mode, setMode] = useStorage("color", 'mode');
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
   const choseColor = (e) => {
     setCurrentColor(e.target.value);
@@ -22,17 +23,29 @@ const ColorProvider = ({ children }) => {
     setMode("erase");
   };
 
+  //sto cliccando
+  const handleMouseDown = () => {
+    setIsMouseDown(true); 
+  }
+
+  //non sto cliccando
+  const handleMouseUp = () => {
+    setIsMouseDown(false)
+  }
+
   const handleColoring = (i) => {
-    setCellColors((prev) => {
-      console.log(cellColors);
-      const newColors = [...prev];
-      if (mode === "color") {
-        newColors[i] = currentColor;
-      } else {
-        newColors[i] = "#FFFFFF";
-      }
-      return newColors;
-    });
+    if (isMouseDown) {
+
+      setCellColors((prev) => {
+        const newColors = [...prev];
+        if (mode === "color") {
+          newColors[i] = currentColor;
+        } else {
+          newColors[i] = "#FFFFFF";
+        }
+        return newColors;
+      });
+    }
   };
 
   const clearCells = () => {
@@ -40,7 +53,7 @@ const ColorProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("La modalità è cambiata:", mode);
+    // console.log("La modalità è cambiata:", mode);
   }, [mode]);
 
   return (
@@ -52,7 +65,9 @@ const ColorProvider = ({ children }) => {
         clearCells,
         handleColoring,
         choseErasor,
-        mode
+        mode,
+        handleMouseDown, 
+        handleMouseUp
       }}
     >
       {children}

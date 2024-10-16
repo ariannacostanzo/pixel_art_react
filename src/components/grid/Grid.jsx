@@ -11,7 +11,7 @@ const Grid = () => {
     calculateCells,
     cellColors,
   } = useGrid();
-  const { handleColoring, handleMouseDown, handleMouseUp } = useColor();
+  const { handleColoring, handleMouseDown, handleMouseUp, mode } = useColor();
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
 //   useEffect(() => {
@@ -31,11 +31,15 @@ const Grid = () => {
   return (
     <>
       <main
-      onMouseDown={handleMouseDown} //disegno quando premo
-      onMouseUp={handleMouseUp} //disattivo il disegno quando smetto di cliccare
-      
-      > 
-        
+        onMouseDown={handleMouseDown} //disegno quando premo
+        onMouseUp={handleMouseUp} //disattivo il disegno quando smetto di cliccare
+        style={{
+          cursor:
+            mode === "color"
+              ? "url('/public/brush.png') 16 16, auto"
+              : "url('/public/eraser.png')16 16, auto",
+        }}
+      >
         {numberOfCells.map((_, i) => (
           <div
             key={`cell${i}`}

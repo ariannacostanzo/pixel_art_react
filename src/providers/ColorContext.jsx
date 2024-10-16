@@ -19,6 +19,10 @@ const ColorProvider = ({ children }) => {
     setMode("color");
   };
 
+  const chosePen = () => {
+    setMode("color");
+  }
+
   const choseErasor = () => {
     setMode("erase");
   };
@@ -78,7 +82,7 @@ const ColorProvider = ({ children }) => {
         choseErasor,
         mode,
         handleMouseDown, 
-        handleMouseUp
+        handleMouseUp, chosePen
       }}
     >
       {children}

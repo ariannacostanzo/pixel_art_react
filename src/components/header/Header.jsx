@@ -5,13 +5,13 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
 const Header = () => {
-  const { choseColor, currentColor, clearCells, choseErasor, mode } =
+  const { choseColor, currentColor, clearCells, choseErasor, mode, chosePen } =
     useColor();
 
   return (
     <>
       <header>
-        <h1 className="text-4xl">Pixel Art</h1>
+        <h1 className="text-4xl uppercase font-bold">Pixel App</h1>
         <div className="flex gap-4 items-center">
           {/* svuota celle  */}
           <div onClick={clearCells} className="cursor-pointer">
@@ -34,7 +34,7 @@ const Header = () => {
             ></Tooltip>
           </div>
           {/* color picker  */}
-          <div className="flex items-center" onClick={choseColor}>
+          <div className="flex items-center" onClick={chosePen}>
             <Tooltip
               icon={faPen}
               text="colora"

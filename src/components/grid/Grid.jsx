@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./grid.scss";
 
-const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, numberOfCells, calculateCells}) => {
+const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, numberOfCells, calculateCells, colorCell, cellColors}) => {
   
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
@@ -22,11 +22,13 @@ const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, n
         {numberOfCells.map((_, i) => (
           <div
             key={`cell${i}`}
+            onClick={() => {colorCell(i)}}
             className="cell"
             style={{
               width: `${cellWidth}px`,
               height: `${cellHeight}px`,
               border: "1px solid black",
+              backgroundColor: cellColors[i]
             }}
           ></div>
         ))}

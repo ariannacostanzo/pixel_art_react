@@ -10,12 +10,22 @@ function App() {
     setCurrentColor(e.target.value);
   };
 
+  const colorCell = (i) => {
+    console.log(currentColor, i)
+    setCellColors((prev) => {
+      const newColors = [...prev];
+      newColors[i] = currentColor;
+      return newColors;
+    })
+  }
+
   //logica creazione grid
   const [cellWidth, setCellWidth] = useState(40);
   const [cellHeight, setCellHeight] = useState(40);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [numberOfCells, setNumberOfCells] = useState([]);
+  const [cellColors, setCellColors] = useState([]);
 
   //controllo il cambio della finestra
   const handleResize = () => {
@@ -31,11 +41,13 @@ function App() {
     const totalCells = columns * rows;
 
     setNumberOfCells(Array.from({ length: totalCells }));
+    setCellColors(Array(totalCells).fill('#FFFFFF'))
   };
 
   return (
     <>
       <Header currentColor={currentColor} choseColor={choseColor}></Header>
+
       <Grid
         handleResize={handleResize}
         screenWidth={screenWidth}
@@ -44,6 +56,8 @@ function App() {
         cellHeight={cellHeight}
         numberOfCells={numberOfCells}
         calculateCells={calculateCells}
+        colorCell={colorCell}
+        cellColors={cellColors}
       ></Grid>
     </>
   );

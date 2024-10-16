@@ -1,8 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./grid.scss";
+import { useGrid } from "../../providers/GridContext.jsx";
+import { useColor } from "../../providers/ColorContext.jsx";
 
-const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, numberOfCells, calculateCells, colorCell, cellColors}) => {
-  
+const Grid = () => {
+  const {
+    handleResize,
+    screenWidth,
+    screenHeight,
+    cellWidth,
+    cellHeight,
+    numberOfCells,
+    calculateCells,
+    cellColors,
+  } = useGrid();
+  const { colorCell } = useColor();
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
   useEffect(() => {
@@ -22,13 +34,15 @@ const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, n
         {numberOfCells.map((_, i) => (
           <div
             key={`cell${i}`}
-            onClick={() => {colorCell(i)}}
+            onClick={() => {
+              colorCell(i);
+            }}
             className="cell"
             style={{
               width: `${cellWidth}px`,
               height: `${cellHeight}px`,
               border: "1px solid black",
-              backgroundColor: cellColors[i]
+              backgroundColor: cellColors[i],
             }}
           ></div>
         ))}

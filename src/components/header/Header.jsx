@@ -1,6 +1,8 @@
 import './header.scss'
+import { useColor } from '../../providers/ColorContext.jsx';
 
-const Header = ({currentColor, choseColor}) => {
+const Header = () => {
+    const {choseColor, currentColor} = useColor();
 
     
      return (

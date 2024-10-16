@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useGrid } from "./GridContext";
+import { useGrid } from './GridContext.jsx';
 
 const ColorContext = createContext();
 

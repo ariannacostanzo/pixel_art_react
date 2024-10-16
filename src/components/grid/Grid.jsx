@@ -42,7 +42,6 @@ const Grid = () => {
             style={{
               width: `${cellWidth}px`,
               height: `${cellHeight}px`,
-              border: "1px solid black",
               backgroundColor: cellColors[i],
             }}
           ></div>

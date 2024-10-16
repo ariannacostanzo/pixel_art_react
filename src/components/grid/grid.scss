@@ -9,10 +9,8 @@ main {
 }
 
 .cell {
-    border: 1px solid black;
+    border: 1px solid rgba(141, 141, 141, 0.349);
     margin: 0;
     padding: 0;
     line-height: 1;
-    // flex-grow: 0;
-    // flex-shrink: 0;
 }

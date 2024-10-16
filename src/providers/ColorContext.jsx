@@ -6,7 +6,7 @@ const ColorContext = createContext();
 
 const ColorProvider = ({ children }) => {
 
-    const { setCellColors , cellColors} = useGrid();
+    const { setCellColors , cellColors, totalCells} = useGrid();
   //logica colore
   const [currentColor, setCurrentColor] = useStorage("#FFFFFF", 'selectedColor');
 
@@ -24,6 +24,10 @@ const ColorProvider = ({ children }) => {
 
   };
 
+  const clearCells = () => {
+    setCellColors(Array(totalCells).fill('#FFFFFF'))
+  }
+
   return (
     <ColorContext.Provider
       value={{
@@ -31,6 +35,7 @@ const ColorProvider = ({ children }) => {
         setCurrentColor,
         choseColor,
         colorCell,
+        clearCells
       }}
     >
       {children}

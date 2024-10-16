@@ -5,7 +5,6 @@ import { useColor } from "../../providers/ColorContext.jsx";
 
 const Grid = () => {
   const {
-    handleResize,
     screenWidth,
     screenHeight,
     cellWidth,
@@ -19,12 +18,12 @@ const Grid = () => {
   const { colorCell } = useColor();
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [screenWidth, screenHeight, cellWidth, cellHeight]);
+//   useEffect(() => {
+//     window.addEventListener("resize", handleResize);
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, [screenWidth, screenHeight, cellWidth, cellHeight]);
 
   useEffect(() => {
     calculateCells();
@@ -36,6 +35,7 @@ const Grid = () => {
   return (
     <>
       <main>
+        
         {numberOfCells.map((_, i) => (
           <div
             key={`cell${i}`}

@@ -10,23 +10,15 @@ const GridProvider = ({ children }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [numberOfCells, setNumberOfCells] = useStorage([], "numberOfCells");
-  // const [cellColors, setCellColors] = useStorage(() => {
-  //   const itemValue = localStorage.getItem("cellColors");
-  //   // Se non ci sono colori salvati, ritorna un array di bianchi di lunghezza numberOfCells
-  //   if (!itemValue) {
-  //     return new Array(numberOfCells.length).fill("#FFFFFF");
-  //   } else {
-  //     return JSON.parse(itemValue)
-  //   }
-  // }, "cellColors");
-  const [cellColors, setCellColors] = useStorage(["FFFFFF"], 'cellColors')
+  const [cellColors, setCellColors] = useStorage([], 'cellColors')
 
   //controllo il cambio della finestra
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth);
-    setScreenHeight(window.innerHeight);
-    calculateCells();
-  };
+  //forse da eliminare
+  // const handleResize = () => {
+  //   setScreenWidth(window.innerWidth);
+  //   setScreenHeight(window.innerHeight);
+  //   calculateCells();
+  // };
 
   //calcolo il numero di celle
   const calculateCells = () => {
@@ -36,13 +28,18 @@ const GridProvider = ({ children }) => {
 
     setNumberOfCells(Array.from({ length: totalCells }));
     setCellColors((prevColors) => {
-      // Se prevColors ha già il numero corretto di celle, ritorna quello
-      if (prevColors.length === totalCells) {
-        return prevColors;
+      const newColors = [...prevColors];
+
+      // Se ci sono meno colori di celle, aggiungo celle con colore di default
+      if (newColors.length < totalCells) {
+        newColors.length = totalCells;
+        newColors.fill("#FFFFFF", prevColors.length);
+      } else if (newColors.length > totalCells) {
+        // Se ci sono più colori del numero di celle, rimuovo i colori in eccesso
+        newColors.length = totalCells;
       }
 
-      // Altrimenti, ritorna un nuovo array pieno di #FFFFFF
-      return new Array(totalCells).fill("#FFFFFF");
+      return newColors;
     });
   };
 
@@ -61,7 +58,6 @@ const GridProvider = ({ children }) => {
         setNumberOfCells,
         cellColors,
         setCellColors,
-        handleResize,
         calculateCells,
       }}
     >

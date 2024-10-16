@@ -71,4 +71,5 @@ const useGrid = () => {
   return value;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { GridProvider, useGrid };

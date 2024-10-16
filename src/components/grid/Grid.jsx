@@ -5,17 +5,13 @@ import { useColor } from "../../providers/ColorContext.jsx";
 
 const Grid = () => {
   const {
-    screenWidth,
-    screenHeight,
     cellWidth,
     cellHeight,
     numberOfCells,
     calculateCells,
     cellColors,
-    setCellColors,
-    totalCells
   } = useGrid();
-  const { colorCell } = useColor();
+  const { handleColoring } = useColor();
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
 //   useEffect(() => {
@@ -40,7 +36,7 @@ const Grid = () => {
           <div
             key={`cell${i}`}
             onClick={() => {
-              colorCell(i);
+              handleColoring(i);
             }}
             className="cell"
             style={{

@@ -1,32 +1,47 @@
-import { createContext, useContext } from "react";
-import { useGrid } from './GridContext.jsx';
+import { createContext, useContext, useEffect, useState } from "react";
+import { useGrid } from "./GridContext.jsx";
 import useStorage from "../hooks/useStorage.js";
 
 const ColorContext = createContext();
 
 const ColorProvider = ({ children }) => {
-
-    const { setCellColors , cellColors, totalCells} = useGrid();
+  const { setCellColors, cellColors, totalCells } = useGrid();
   //logica colore
-  const [currentColor, setCurrentColor] = useStorage("#FFFFFF", 'selectedColor');
+  const [currentColor, setCurrentColor] = useStorage(
+    "#FFFFFF",
+    "selectedColor"
+  );
+  const [mode, setMode] = useStorage("color", 'mode');
 
   const choseColor = (e) => {
     setCurrentColor(e.target.value);
+    setMode("color");
   };
 
-  const colorCell = (i) => {
+  const choseErasor = () => {
+    setMode("erase");
+  };
+
+  const handleColoring = (i) => {
     setCellColors((prev) => {
-      console.log(cellColors)
+      console.log(cellColors);
       const newColors = [...prev];
-      newColors[i] = currentColor;
+      if (mode === "color") {
+        newColors[i] = currentColor;
+      } else {
+        newColors[i] = "#FFFFFF";
+      }
       return newColors;
     });
-
   };
 
   const clearCells = () => {
-    setCellColors(Array(totalCells).fill('#FFFFFF'))
-  }
+    setCellColors(Array(totalCells).fill("#FFFFFF"));
+  };
+
+  useEffect(() => {
+    console.log("La modalità è cambiata:", mode);
+  }, [mode]);
 
   return (
     <ColorContext.Provider
@@ -34,8 +49,10 @@ const ColorProvider = ({ children }) => {
         currentColor,
         setCurrentColor,
         choseColor,
-        colorCell,
-        clearCells
+        clearCells,
+        handleColoring,
+        choseErasor,
+        mode
       }}
     >
       {children}
@@ -48,4 +65,5 @@ const useColor = () => {
   return value;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { ColorProvider, useColor };

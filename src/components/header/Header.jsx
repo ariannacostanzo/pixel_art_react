@@ -2,8 +2,13 @@ import "./header.scss";
 import { useColor } from "../../providers/ColorContext.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 const Header = () => {
-  const { choseColor, currentColor, clearCells } = useColor();
+  const { choseColor, currentColor, clearCells, choseErasor, mode } = useColor();
+
+  useEffect(()=> {
+    console.log(mode)
+  }, [mode])
 
   return (
     <>
@@ -15,7 +20,7 @@ const Header = () => {
             Cancella tutto
             <FontAwesomeIcon icon={faEraser} className="ml-2"></FontAwesomeIcon>
           </div>
-            {/* color picker  */}
+          {/* color picker  */}
           <div>
             <label htmlFor="colorPalette" className="mr-2">
               Scegli il colore
@@ -28,6 +33,11 @@ const Header = () => {
               value={currentColor}
             />
           </div>
+          <div onClick={choseErasor}>
+            Cancella
+            <FontAwesomeIcon icon={faEraser} className="ml-2"></FontAwesomeIcon>
+          </div>
+          <div>Modalità: {mode === 'color' ? 'Colora' : 'Cancella'}</div>
         </div>
       </header>
     </>

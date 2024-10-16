@@ -1,28 +1,8 @@
 import { useEffect, useState } from "react";
 import "./grid.scss";
 
-const Grid = () => {
-  const [cellWidth, setCellWidth] = useState(40);
-  const [cellHeight, setCellHeight] = useState(40);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-  const [numberOfCells, setNumberOfCells] = useState([]);
-
-  //controllo il cambio della finestra
-  const handleResize = () => {
-    setScreenWidth(window.innerWidth);
-    setScreenHeight(window.innerHeight);
-    calculateCells();
-  };
-
-  //calcolo il numero di celle
-  const calculateCells = () => {
-    const columns = Math.floor(screenWidth / cellWidth);
-    const rows = Math.floor(screenHeight / cellHeight);
-    const totalCells = columns * rows;
-
-    setNumberOfCells(Array.from({ length: totalCells }));
-  };
+const Grid = ({handleResize, screenWidth, screenHeight, cellWidth, cellHeight, numberOfCells, calculateCells}) => {
+  
 
   //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
   useEffect(() => {

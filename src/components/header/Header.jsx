@@ -1,13 +1,8 @@
-import { useState } from 'react'
 import './header.scss'
 
-const Header = () => {
+const Header = ({currentColor, choseColor}) => {
 
-    const [currentColor, setCurrentColor] = useState('#FFFFFF');
-
-    const choseColor = (e) => {
-        setCurrentColor(e.target.value)
-    }
+    
      return (
        <>
          <header>

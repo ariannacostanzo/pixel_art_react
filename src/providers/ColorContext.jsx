@@ -5,7 +5,7 @@ import useStorage from "../hooks/useStorage.js";
 const ColorContext = createContext();
 
 const ColorProvider = ({ children }) => {
-  const { setCellColors, cellColors, totalCells } = useGrid();
+  const { setCellColors,  totalCells } = useGrid();
   //logica colore
   const [currentColor, setCurrentColor] = useStorage(
     "#FFFFFF",
@@ -24,9 +24,10 @@ const ColorProvider = ({ children }) => {
   };
 
   //sto cliccando
-  const handleMouseDown = () => {
-    setIsMouseDown(true); 
-  }
+  const handleMouseDown = (e) => {
+    e.preventDefault(); 
+    setIsMouseDown(true);
+  };
 
   //non sto cliccando
   const handleMouseUp = () => {
@@ -51,6 +52,16 @@ const ColorProvider = ({ children }) => {
   const clearCells = () => {
     setCellColors(Array(totalCells).fill("#FFFFFF"));
   };
+
+   useEffect(() => {
+     handleMouseUp()
+
+     window.addEventListener("mouseup", handleMouseUp);
+
+     return () => {
+       window.removeEventListener("mouseup", handleMouseUp);
+     };
+   }, []);
 
   useEffect(() => {
     // console.log("La modalità è cambiata:", mode);

@@ -13,7 +13,7 @@ const Grid = () => {
     gridWidth,
     gridHeight,
   } = useGrid();
-  const { handleColoring, handleMouseDown, handleMouseUp, mode} = useColor();
+  const { handleColoring, mode, isMouseDown} = useColor();
 
   useEffect(() => {
     calculateCells();
@@ -27,8 +27,6 @@ const Grid = () => {
   return (
     <>
       <main
-        onMouseDown={handleMouseDown} //disegno quando premo
-        onMouseUp={handleMouseUp} //disattivo il disegno quando smetto di cliccare
         style={{
           cursor:
             mode === "color"
@@ -43,9 +41,13 @@ const Grid = () => {
         {numberOfCells.map((_, i) => (
           <div
             key={`cell${i}`}
+            //se sto premendo coloro in hover
             onMouseOver={() => {
-              handleColoring(i);
+              if (isMouseDown) {
+                handleColoring(i);
+              }
             }}
+            //coloro al click
             onClick={() => {
               handleColoring(i);
             }}

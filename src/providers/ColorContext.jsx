@@ -28,20 +28,19 @@ const ColorProvider = ({ children }) => {
     setMode("erase");
   };
 
-  //sto cliccando
+  //sto tenendo promuto il mouse
   const handleMouseDown = (e) => {
     e.preventDefault(); 
     setIsMouseDown(true);
   };
 
-  //non sto cliccando
+  //non sto tenendo premuto
   const handleMouseUp = () => {
     setIsMouseDown(false)
   }
   
 
   const handleColoring = (i) => {
-    if (isMouseDown ) {
       setCellColors((prev) => {
         const newColors = [...prev];
         if (mode === "color") {
@@ -51,18 +50,25 @@ const ColorProvider = ({ children }) => {
         }
         return newColors;
       });
-    }
   };
 
   
 
    useEffect(() => {
-    //  handleMouseUp()
 
      window.addEventListener("mouseup", handleMouseUp);
 
      return () => {
        window.removeEventListener("mouseup", handleMouseUp);
+     };
+   }, []);
+   
+   useEffect(() => {
+
+     window.addEventListener("mousedown", handleMouseDown);
+
+     return () => {
+       window.removeEventListener("mousedown", handleMouseDown);
      };
    }, []);
 
@@ -79,8 +85,9 @@ const ColorProvider = ({ children }) => {
         handleColoring,
         choseErasor,
         mode,
-        handleMouseDown, 
-        handleMouseUp, chosePen, isMouseDown, setIsMouseDown
+        chosePen, 
+        isMouseDown, 
+        setIsMouseDown
       }}
     >
       {children}

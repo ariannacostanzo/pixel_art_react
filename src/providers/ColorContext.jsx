@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import { useGrid } from "./GridContext.jsx";
 import useStorage from "../hooks/useStorage.js";
@@ -22,7 +23,7 @@ const ColorProvider = ({ children }) => {
 
   const chosePen = () => {
     setMode("color");
-  }
+  };
 
   const choseErasor = () => {
     setMode("erase");
@@ -30,51 +31,54 @@ const ColorProvider = ({ children }) => {
 
   //sto tenendo promuto il mouse
   const handleMouseDown = (e) => {
-    e.preventDefault(); 
+    // Se l'elemento cliccato è un input, non fare nulla
+    if (
+      e.target.tagName.toLowerCase() === "input" ||
+      e.target.tagName.toLowerCase() === "textarea"
+    ) {
+      return;
+    }
+    
+    e.preventDefault();
     setIsMouseDown(true);
   };
 
   //non sto tenendo premuto
   const handleMouseUp = () => {
-    setIsMouseDown(false)
-  }
-  
-
-  const handleColoring = (i) => {
-      setCellColors((prev) => {
-        const newColors = [...prev];
-        if (mode === "color") {
-          newColors[i] = currentColor;
-        } else {
-          newColors[i] = "#FFFFFF";
-        }
-        return newColors;
-      });
+    setIsMouseDown(false);
   };
 
-  
+  //coloro
+  const handleColoring = (i) => {
+    setCellColors((prev) => {
+      const newColors = [...prev];
+      if (mode === "color") {
+        newColors[i] = currentColor;
+      } else {
+        newColors[i] = "#FFFFFF";
+      }
+      return newColors;
+    });
+  };
 
-   useEffect(() => {
-
-     window.addEventListener("mouseup", handleMouseUp);
-
-     return () => {
-       window.removeEventListener("mouseup", handleMouseUp);
-     };
-   }, []);
-   
-   useEffect(() => {
-
-     window.addEventListener("mousedown", handleMouseDown);
-
-     return () => {
-       window.removeEventListener("mousedown", handleMouseDown);
-     };
-   }, []);
-
+  //tengo conto di quando smetto di tenere premuto il mouse
   useEffect(() => {
-    // console.log("La modalità è cambiata:", mode);
-  }, [mode]);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  //tengo conto di quando tengo premuto il mouse
+  useEffect(() => {
+    window.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      window.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, []);
+
 
   return (
     <ColorContext.Provider
@@ -85,9 +89,9 @@ const ColorProvider = ({ children }) => {
         handleColoring,
         choseErasor,
         mode,
-        chosePen, 
-        isMouseDown, 
-        setIsMouseDown
+        chosePen,
+        isMouseDown,
+        setIsMouseDown,
       }}
     >
       {children}
@@ -100,5 +104,5 @@ const useColor = () => {
   return value;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 export { ColorProvider, useColor };

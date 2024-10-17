@@ -16,12 +16,12 @@ const Header = () => {
   return (
     <>
       <header>
-        <h1 className="text-4xl uppercase font-bold">Pixel App</h1>
+        <h1 className="text-4xl uppercase font-bold">Pixel Art</h1>
         {/* cambia dimensioni griglia  */}
         <div className="flex items-center gap-4 shrink-0 mx-4">
           <div className="text-end">
             <div>
-              <label htmlFor="gridwidth">Larghezza griglia</label>
+              <label htmlFor="gridWidth">Larghezza griglia</label>
               <input
                 type="number"
                 id="gridWidth"
@@ -32,10 +32,10 @@ const Header = () => {
               />
             </div>
             <div className="mt-2">
-              <label htmlFor="gridwidth">Altezza griglia</label>
+              <label htmlFor="gridHeight">Altezza griglia</label>
               <input
                 type="number"
-                id="gridWidth"
+                id="gridHeight"
                 onChange={choseGridHeight}
                 min="5"
                 max="50"

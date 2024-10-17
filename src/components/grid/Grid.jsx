@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import "./grid.scss";
 import { useGrid } from "../../providers/GridContext.jsx";
@@ -17,12 +18,9 @@ const Grid = () => {
 
   useEffect(() => {
     calculateCells();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, []);
 
-
-  //modificare le celle, fare in modo che attraverso degli scaglioni ci sia un certo
-  //numero fisso di celle, altrimenti i colori sono sempre sovrascritti
 
   return (
     <>
@@ -56,11 +54,11 @@ const Grid = () => {
               width: `${cellWidth}px`,
               height: `${cellHeight}px`,
               backgroundColor: cellColors[i],
-              // flexBasis: `calc(${gridWidth}px / ${cellWidth}px)`
             }}
           ></div>
         ))}
       </main>
+      
     </>
   );
 };

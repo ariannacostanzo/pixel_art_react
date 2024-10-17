@@ -23,6 +23,8 @@ const GridProvider = ({ children }) => {
   }, [gridWidth, gridHeight])
 
   const handleResize = () => {
+    console.log('funziona?')
+    console.log(tempGridWidth);
     clearCells();
     setGridWidth(tempGridWidth);
     setGridHeight(tempGridHeight);
@@ -39,7 +41,8 @@ const GridProvider = ({ children }) => {
 
   const choseGridWidth = (e) => {
     const value = parseInt(e.target.value, 10);
-   if (value >= 5 && value <= 100) {
+    console.log(value)
+   if (value >= 5 && value <= 120) {
      setTempGridWidth(value);
    } else if (value > 100) {
      setTempGridWidth(100); 
@@ -48,7 +51,8 @@ const GridProvider = ({ children }) => {
   
   const choseGridHeight = (e) => {
     const value = parseInt(e.target.value, 10);
-    if (value >= 5 && value <= 50) {
+    console.log(value);
+    if (value >= 5 && value <= 60) {
       setTempGridHeight(value);
     } else if (value > 50) {
       setTempGridHeight(50); 

@@ -20,7 +20,7 @@ body {
     rgba(97, 194, 196, 1) 0%,
     rgba(191, 236, 135, 1) 100%
   );
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
   min-height: 86.8vh;
-  min-width: 100vw;
+  /* min-width: 100vw; */
 }

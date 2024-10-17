@@ -7,11 +7,16 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
+import InputNumber from "../inputNumber/InputNumber.jsx";
 const Header = () => {
-  const { choseColor, currentColor,choseErasor, mode, chosePen } =
-    useColor();
-  const { saveGridAsImage, choseGridWidth, choseGridHeight, handleResize, clearCells } =
-    useGrid();
+  const { choseColor, currentColor, choseErasor, mode, chosePen } = useColor();
+  const {
+    saveGridAsImage,
+    choseGridWidth,
+    choseGridHeight,
+    handleResize,
+    clearCells,
+  } = useGrid();
 
   return (
     <>
@@ -21,26 +26,24 @@ const Header = () => {
         <div className="flex items-center gap-4 shrink-0 mx-4">
           <div className="text-end">
             <div>
-              <label htmlFor="gridWidth">Larghezza griglia</label>
-              <input
-                type="number"
+              <InputNumber
                 id="gridWidth"
-                onChange={choseGridWidth}
+                lab="Larghezza griglia"
+                func={choseGridWidth}
                 min="5"
                 max="100"
                 placeholder="40"
-              />
+              ></InputNumber>
             </div>
             <div className="mt-2">
-              <label htmlFor="gridHeight">Altezza griglia</label>
-              <input
-                type="number"
+              <InputNumber
                 id="gridHeight"
-                onChange={choseGridHeight}
+                lab="Altezza griglia"
+                func={choseGridHeight}
                 min="5"
                 max="50"
                 placeholder="23"
-              />
+              ></InputNumber>
             </div>
           </div>
           <div onClick={handleResize}>
@@ -50,6 +53,10 @@ const Header = () => {
               chosen="ignore"
             ></Tooltip>
           </div>
+        </div>
+        {/* cambia dimensioni cella  */}
+        <div>
+          
         </div>
         <div className="flex gap-4 items-center shrink-0">
           {/* salva  */}

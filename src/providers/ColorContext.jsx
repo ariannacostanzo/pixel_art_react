@@ -10,7 +10,7 @@ const ColorProvider = ({ children }) => {
 
   //logica colore
   const [currentColor, setCurrentColor] = useStorage(
-    "#FFFFFF",
+    "#000000",
     "selectedColor"
   );
   const [mode, setMode] = useStorage("color", "mode");

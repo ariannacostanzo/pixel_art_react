@@ -12,3 +12,13 @@ main {
     line-height: 1;
     
 }
+.cursor-overlay {
+  position: absolute;
+  pointer-events: none; /* Assicurati che i clic passino attraverso */
+}
+
+.cross {
+  color: red; /* Cambia il colore come preferisci */
+  font-size: 24px; /* Dimensione della 'X' */
+  transform: translate(-50%, -50%); /* Centra l'elemento */
+}

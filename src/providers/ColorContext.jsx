@@ -38,10 +38,10 @@ const ColorProvider = ({ children }) => {
   const handleMouseUp = () => {
     setIsMouseDown(false)
   }
+  
 
   const handleColoring = (i) => {
-    if (isMouseDown) {
-
+    if (isMouseDown ) {
       setCellColors((prev) => {
         const newColors = [...prev];
         if (mode === "color") {
@@ -57,7 +57,7 @@ const ColorProvider = ({ children }) => {
   
 
    useEffect(() => {
-     handleMouseUp()
+    //  handleMouseUp()
 
      window.addEventListener("mouseup", handleMouseUp);
 
@@ -80,7 +80,7 @@ const ColorProvider = ({ children }) => {
         choseErasor,
         mode,
         handleMouseDown, 
-        handleMouseUp, chosePen
+        handleMouseUp, chosePen, isMouseDown, setIsMouseDown
       }}
     >
       {children}

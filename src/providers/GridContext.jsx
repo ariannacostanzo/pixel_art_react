@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
-import useStorage from "../hooks/useStorage";
 
 const GridContext = createContext();
 
@@ -45,6 +45,7 @@ const GridProvider = ({ children }) => {
      setTempGridWidth(100); 
    }
   }
+  
   const choseGridHeight = (e) => {
     const value = parseInt(e.target.value, 10);
     if (value >= 5 && value <= 50) {

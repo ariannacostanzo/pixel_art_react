@@ -5,31 +5,30 @@ const GridContext = createContext();
 
 const GridProvider = ({ children }) => {
   //logica creazione grid
-  const [cellWidth, setCellWidth] = useState(30);  //era 40
-  const [cellHeight, setCellHeight] = useState(30);
+  const [cellDimension, setCellDimension] = useState(30); //era 40
+  const [tempCellDimension, setTempCellDimension] = useState(cellDimension);
   const [gridWidth, setGridWidth] = useState(40);
   const [gridHeight, setGridHeight] = useState(23);
   const [tempGridWidth, setTempGridWidth] = useState(gridWidth);
   const [tempGridHeight, setTempGridHeight] = useState(gridHeight);
   const [numberOfCells, setNumberOfCells] = useState([]);
-  const [cellColors, setCellColors] = useState([])
-  
+  const [cellColors, setCellColors] = useState([]);
+  const min = 5;
+  const max = 100;
 
   //controllo il cambio della finestra
 
   //aggiorno al cambio
   useEffect(() => {
     handleResize();
-  }, [gridWidth, gridHeight])
+  }, [gridWidth, gridHeight]);
 
   const handleResize = () => {
-    console.log('funziona?')
-    console.log(tempGridWidth);
     clearCells();
     setGridWidth(tempGridWidth);
     setGridHeight(tempGridHeight);
+    setCellDimension(tempCellDimension);
     calculateCells();
-    
   };
 
   const clearCells = () => {
@@ -38,27 +37,32 @@ const GridProvider = ({ children }) => {
   };
 
   //cambio le dimensioni della griglia a scelta dell'utente
+  const choseCellDimension = (e) => {
+    const value = parseInt(e.target.value, 10);
+    if (value >= min && value <= max) {
+      setTempCellDimension(value);
+    } else if (value > max) {
+      setTempCellDimension(max);
+    }
+  };
 
   const choseGridWidth = (e) => {
     const value = parseInt(e.target.value, 10);
-    console.log(value)
-   if (value >= 5 && value <= 120) {
-     setTempGridWidth(value);
-   } else if (value > 100) {
-     setTempGridWidth(100); 
-   }
-  }
-  
+    if (value >= min && value <= max) {
+      setTempGridWidth(value);
+    } else if (value > max) {
+      setTempGridWidth(max);
+    }
+  };
+
   const choseGridHeight = (e) => {
     const value = parseInt(e.target.value, 10);
-    console.log(value);
-    if (value >= 5 && value <= 60) {
+    if (value >= min && value <= max) {
       setTempGridHeight(value);
-    } else if (value > 50) {
-      setTempGridHeight(50); 
+    } else if (value > max) {
+      setTempGridHeight(max);
     }
-  }
-
+  };
 
   //calcolo il numero di celle
   const calculateCells = () => {
@@ -85,8 +89,6 @@ const GridProvider = ({ children }) => {
 
   //salvare il disegno
   const saveGridAsImage = () => {
-
-    
     //creo un canvas
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
@@ -95,18 +97,18 @@ const GridProvider = ({ children }) => {
     const totalColumns = gridWidth;
     const totalRows = gridHeight;
 
-    canvas.width = totalColumns * cellWidth;
-    canvas.height = totalRows * cellHeight;
+    canvas.width = totalColumns * cellDimension;
+    canvas.height = totalRows * cellDimension;
 
     //disegno tutte le celle nel canvas
     numberOfCells.forEach((_, i) => {
-      const color = cellColors[i] || "#FFFFFF"; 
-      const x = (i % totalColumns) * cellWidth;
-      const y = Math.floor(i / totalColumns) * cellHeight;
+      const color = cellColors[i] || "#FFFFFF";
+      const x = (i % totalColumns) * cellDimension;
+      const y = Math.floor(i / totalColumns) * cellDimension;
 
       // Disegno la cella sul canvas
       context.fillStyle = color;
-      context.fillRect(x, y, cellWidth, cellHeight);
+      context.fillRect(x, y, cellDimension, cellDimension);
     });
 
     const image = canvas.toDataURL("image/png");
@@ -115,31 +117,29 @@ const GridProvider = ({ children }) => {
     const link = document.createElement("a");
     link.href = image;
     link.download = "grid-drawing.png"; // Nome del file salvato
-    document.body.appendChild(link); 
-    link.click(); 
-    document.body.removeChild(link); 
-  }
-  
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <GridContext.Provider
       value={{
-        cellWidth,
-        setCellWidth,
-        cellHeight,
-        setCellHeight,
+        cellDimension,
         gridWidth,
         gridHeight,
         numberOfCells,
-        setNumberOfCells,
         cellColors,
-        setCellColors,
         calculateCells,
         saveGridAsImage,
         choseGridHeight,
         choseGridWidth,
         handleResize,
-        clearCells
+        clearCells,
+        choseCellDimension,
+        min,
+        max,
+        setCellColors
       }}
     >
       {children}

@@ -6,8 +6,7 @@ import { useColor } from "../../providers/ColorContext.jsx";
 
 const Grid = () => {
   const {
-    cellWidth,
-    cellHeight,
+    cellDimension,
     numberOfCells,
     calculateCells,
     cellColors,
@@ -31,9 +30,9 @@ const Grid = () => {
               ? "url('/brush.png') 3 32, auto"
               : "url('/eraser.png')3 32, auto",
           display: "grid",
-          gridTemplateColumns: `repeat(${gridWidth}, ${cellWidth}px)`,
-          gridTemplateRows: `repeat(${gridHeight}, ${cellHeight}px)`,
-          width: `calc(${gridWidth} * ${cellWidth}px)`,
+          gridTemplateColumns: `repeat(${gridWidth}, ${cellDimension}px)`,
+          gridTemplateRows: `repeat(${gridHeight}, ${cellDimension}px)`,
+          width: `calc(${gridWidth} * ${cellDimension}px)`,
         }}
       >
         {numberOfCells.map((_, i) => (
@@ -51,8 +50,8 @@ const Grid = () => {
             }}
             className="cell"
             style={{
-              width: `${cellWidth}px`,
-              height: `${cellHeight}px`,
+              width: `${cellDimension}px`,
+              height: `${cellDimension}px`,
               backgroundColor: cellColors[i],
             }}
           ></div>

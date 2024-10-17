@@ -27,11 +27,20 @@ h1 {
     color: var(--pink);
 }
 
+.mode {
+    display: inline-block;
+    width: 70px;
+}
+
 
 
 @media screen and (min-width: 1100px) {
  header {
     font-size: 20px;
+ }
+
+ .mode {
+    width: 90px;
  }
 
 

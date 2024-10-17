@@ -5,9 +5,9 @@ import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
 import InputNumber from "../inputNumber/InputNumber.jsx";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   const { choseColor, currentColor, choseErasor, mode, chosePen } = useColor();
   const {
@@ -16,6 +16,7 @@ const Header = () => {
     choseGridHeight,
     handleResize,
     clearCells,
+    choseCellDimension, min, max
   } = useGrid();
 
   return (
@@ -30,34 +31,41 @@ const Header = () => {
                 id="gridWidth"
                 lab="Larghezza griglia"
                 func={choseGridWidth}
-                min="5"
-                max="100"
+                min={min}
+                max={max}
                 placeholder="40"
               ></InputNumber>
             </div>
-            <div className="mt-2">
+            <div className="mt-1">
               <InputNumber
                 id="gridHeight"
                 lab="Altezza griglia"
                 func={choseGridHeight}
-                min="5"
-                max="50"
+                min={min}
+                max={max}
                 placeholder="23"
+              ></InputNumber>
+            </div>
+            <div className="mt-1">
+              <InputNumber
+                id="cellDimension"
+                lab="Dimensioni cella"
+                func={choseCellDimension}
+                min={min}
+                max={max}
+                placeholder="30"
               ></InputNumber>
             </div>
           </div>
           <div onClick={handleResize}>
             <Tooltip
-              icon={faPlus}
-              text="Genera griglia"
+              icon={faArrowsRotate}
+              text="Rigenera griglia"
               chosen="ignore"
             ></Tooltip>
           </div>
         </div>
-        {/* cambia dimensioni cella  */}
-        <div>
-          
-        </div>
+
         <div className="flex gap-4 items-center shrink-0">
           {/* salva  */}
           <div onClick={saveGridAsImage}>
@@ -74,7 +82,7 @@ const Header = () => {
           {/* modalità  */}
           <div className="px-4">
             Modalità:{" "}
-            <span className="text-[#1e211d] font-bold uppercase">
+            <span className="text-[#1e211d] font-bold uppercase mode">
               {mode === "color" ? "Colora" : "Cancella"}
             </span>
           </div>

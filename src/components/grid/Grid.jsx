@@ -27,6 +27,7 @@ const Grid = () => {
       <main
         onMouseDown={handleMouseDown} //disegno quando premo
         onMouseUp={handleMouseUp} //disattivo il disegno quando smetto di cliccare
+        
         style={{
           cursor:
             mode === "color"
@@ -44,9 +45,7 @@ const Grid = () => {
             onMouseOver={() => {
               handleColoring(i);
             }}
-            onClick={() => {
-              handleColoring(i);
-            }}
+            
             className="cell"
             style={{
               width: `${cellWidth}px`,

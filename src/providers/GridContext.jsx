@@ -7,12 +7,12 @@ const GridProvider = ({ children }) => {
   //logica creazione grid
   const [cellWidth, setCellWidth] = useState(30);  //era 40
   const [cellHeight, setCellHeight] = useState(30);
-  const [gridWidth, setGridWidth] = useState(10);
-  const [gridHeight, setGridHeight] = useState(10);
+  const [gridWidth, setGridWidth] = useState(40);
+  const [gridHeight, setGridHeight] = useState(23);
   const [tempGridWidth, setTempGridWidth] = useState(gridWidth);
   const [tempGridHeight, setTempGridHeight] = useState(gridHeight);
-  const [numberOfCells, setNumberOfCells] = useStorage([], "numberOfCells");
-  const [cellColors, setCellColors] = useStorage([], 'cellColors')
+  const [numberOfCells, setNumberOfCells] = useState([]);
+  const [cellColors, setCellColors] = useState([])
   
 
   //controllo il cambio della finestra
@@ -23,20 +23,35 @@ const GridProvider = ({ children }) => {
   }, [gridWidth, gridHeight])
 
   const handleResize = () => {
+    clearCells();
     setGridWidth(tempGridWidth);
     setGridHeight(tempGridHeight);
     calculateCells();
+    
+  };
+
+  const clearCells = () => {
+    const totalCells = numberOfCells.length;
+    setCellColors(Array(totalCells).fill("#FFFFFF"));
   };
 
   //cambio le dimensioni della griglia a scelta dell'utente
 
   const choseGridWidth = (e) => {
-    if (e.target.value < 5 || e.target.value > 47) return
-    setTempGridWidth(e.target.value)
+    const value = parseInt(e.target.value, 10);
+   if (value >= 5 && value <= 100) {
+     setTempGridWidth(value);
+   } else if (value > 100) {
+     setTempGridWidth(100); 
+   }
   }
   const choseGridHeight = (e) => {
-    if (e.target.value < 5 || e.target.value > 19) return;
-    setTempGridHeight(e.target.value)
+    const value = parseInt(e.target.value, 10);
+    if (value >= 5 && value <= 50) {
+      setTempGridHeight(value);
+    } else if (value > 50) {
+      setTempGridHeight(50); 
+    }
   }
 
 
@@ -72,15 +87,17 @@ const GridProvider = ({ children }) => {
     const context = canvas.getContext("2d");
 
     //ottengo le dimensioni della grigia
-    const gridWidth = Math.sqrt(numberOfCells.length);
-    canvas.width = gridWidth * cellWidth;
-    canvas.height = gridWidth * cellHeight;
+    const totalColumns = gridWidth;
+    const totalRows = gridHeight;
+
+    canvas.width = totalColumns * cellWidth;
+    canvas.height = totalRows * cellHeight;
 
     //disegno tutte le celle nel canvas
     numberOfCells.forEach((_, i) => {
       const color = cellColors[i] || "#FFFFFF"; 
-      const x = (i % gridWidth) * cellWidth;
-      const y = Math.floor(i / gridWidth) * cellHeight;
+      const x = (i % totalColumns) * cellWidth;
+      const y = Math.floor(i / totalColumns) * cellHeight;
 
       // Disegno la cella sul canvas
       context.fillStyle = color;
@@ -116,7 +133,8 @@ const GridProvider = ({ children }) => {
         saveGridAsImage,
         choseGridHeight,
         choseGridWidth,
-        handleResize
+        handleResize,
+        clearCells
       }}
     >
       {children}

@@ -8,9 +8,9 @@ import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
 const Header = () => {
-  const { choseColor, currentColor, clearCells, choseErasor, mode, chosePen } =
+  const { choseColor, currentColor,choseErasor, mode, chosePen } =
     useColor();
-  const { saveGridAsImage, choseGridWidth, choseGridHeight, handleResize } =
+  const { saveGridAsImage, choseGridWidth, choseGridHeight, handleResize, clearCells } =
     useGrid();
 
   return (
@@ -18,7 +18,7 @@ const Header = () => {
       <header>
         <h1 className="text-4xl uppercase font-bold">Pixel App</h1>
         {/* cambia dimensioni griglia  */}
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-4 shrink-0 mx-4">
           <div className="text-end">
             <div>
               <label htmlFor="gridwidth">Larghezza griglia</label>
@@ -27,8 +27,8 @@ const Header = () => {
                 id="gridWidth"
                 onChange={choseGridWidth}
                 min="5"
-                max="300"
-                placeholder="10"
+                max="100"
+                placeholder="40"
               />
             </div>
             <div className="mt-2">
@@ -38,8 +38,8 @@ const Header = () => {
                 id="gridWidth"
                 onChange={choseGridHeight}
                 min="5"
-                placeholder="10"
-                max="300"
+                max="50"
+                placeholder="23"
               />
             </div>
           </div>
@@ -51,10 +51,10 @@ const Header = () => {
             ></Tooltip>
           </div>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center shrink-0">
           {/* salva  */}
           <div onClick={saveGridAsImage}>
-            <Tooltip icon={faSave} text="Salva" chosen="ignore"></Tooltip>
+            <Tooltip icon={faSave} text="Salva png" chosen="ignore"></Tooltip>
           </div>
           {/* svuota celle  */}
           <div onClick={clearCells} className="cursor-pointer">

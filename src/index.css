@@ -4,15 +4,19 @@
 
 :root {
   --white: #f2f2ee;
-  --beige: #b4b09f;
-  --pink: #90656a;
-  --blue: #8895a1;
-  --green: #1e211d;
-  --light-green: #404b3c;
+  --beige: #b1ab90;
+  --pink: #a35b64;
+  --blue: #366fa5;
+  --green: #141613;
+  --dark-blue: #153655;
 }
 
 body {
   /* overflow: hidden; */
   font-family: "Dosis", sans-serif;
+  background: rgb(97,194,196);
+  background: linear-gradient(0deg, rgba(97,194,196,1) 0%, rgba(191,236,135,1) 100%);
+background-repeat: no-repeat;
+min-height: 86.8vh;
   
 }

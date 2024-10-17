@@ -5,13 +5,14 @@ import useStorage from "../hooks/useStorage.js";
 const ColorContext = createContext();
 
 const ColorProvider = ({ children }) => {
-  const { setCellColors,  totalCells } = useGrid();
+  const { setCellColors } = useGrid();
+
   //logica colore
   const [currentColor, setCurrentColor] = useStorage(
     "#FFFFFF",
     "selectedColor"
   );
-  const [mode, setMode] = useStorage("color", 'mode');
+  const [mode, setMode] = useStorage("color", "mode");
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const choseColor = (e) => {
@@ -53,9 +54,7 @@ const ColorProvider = ({ children }) => {
     }
   };
 
-  const clearCells = () => {
-    setCellColors(Array(totalCells).fill("#FFFFFF"));
-  };
+  
 
    useEffect(() => {
      handleMouseUp()
@@ -77,7 +76,6 @@ const ColorProvider = ({ children }) => {
         currentColor,
         setCurrentColor,
         choseColor,
-        clearCells,
         handleColoring,
         choseErasor,
         mode,

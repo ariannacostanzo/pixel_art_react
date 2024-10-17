@@ -24,3 +24,19 @@ body {
   min-height: 86.8vh;
   /* min-width: 100vw; */
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
+}

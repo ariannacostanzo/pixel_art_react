@@ -25,6 +25,10 @@ input[type=color] {
 h1 {
     text-shadow: 1px 1px 1px var(--white);
     color: var(--pink);
+
+    span {
+        color: var(--green);
+    }
 }
 
 .mode {

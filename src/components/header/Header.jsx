@@ -22,7 +22,9 @@ const Header = () => {
   return (
     <>
       <header>
-        <h1 className="text-4xl uppercase font-bold">Pixel Art</h1>
+        <h1 className="text-4xl uppercase font-bold">
+          Pixel Art <span>Canvas</span>
+        </h1>
         {/* cambia dimensioni griglia  */}
         <div className="flex items-center gap-4 shrink-0 mx-4">
           <div className="text-end">

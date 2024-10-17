@@ -1,30 +1,49 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import useStorage from "../hooks/useStorage";
 
 const GridContext = createContext();
 
 const GridProvider = ({ children }) => {
   //logica creazione grid
-  const [cellWidth, setCellWidth] = useState(40);
-  const [cellHeight, setCellHeight] = useState(40);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+  const [cellWidth, setCellWidth] = useState(30);  //era 40
+  const [cellHeight, setCellHeight] = useState(30);
+  const [gridWidth, setGridWidth] = useState(10);
+  const [gridHeight, setGridHeight] = useState(10);
+  const [tempGridWidth, setTempGridWidth] = useState(gridWidth);
+  const [tempGridHeight, setTempGridHeight] = useState(gridHeight);
   const [numberOfCells, setNumberOfCells] = useStorage([], "numberOfCells");
   const [cellColors, setCellColors] = useStorage([], 'cellColors')
   
 
   //controllo il cambio della finestra
-  //forse da eliminare
-  // const handleResize = () => {
-  //   setScreenWidth(window.innerWidth);
-  //   setScreenHeight(window.innerHeight);
-  //   calculateCells();
-  // };
+
+  //aggiorno al cambio
+  useEffect(() => {
+    handleResize();
+  }, [gridWidth, gridHeight])
+
+  const handleResize = () => {
+    setGridWidth(tempGridWidth);
+    setGridHeight(tempGridHeight);
+    calculateCells();
+  };
+
+  //cambio le dimensioni della griglia a scelta dell'utente
+
+  const choseGridWidth = (e) => {
+    if (e.target.value < 5 || e.target.value > 47) return
+    setTempGridWidth(e.target.value)
+  }
+  const choseGridHeight = (e) => {
+    if (e.target.value < 5 || e.target.value > 19) return;
+    setTempGridHeight(e.target.value)
+  }
+
 
   //calcolo il numero di celle
   const calculateCells = () => {
-    const columns = Math.floor(screenWidth / cellWidth);
-    const rows = Math.floor(screenHeight / cellHeight);
+    const columns = gridHeight;
+    const rows = gridWidth;
     const totalCells = columns * rows;
 
     setNumberOfCells(Array.from({ length: totalCells }));
@@ -87,16 +106,17 @@ const GridProvider = ({ children }) => {
         setCellWidth,
         cellHeight,
         setCellHeight,
-        screenWidth,
-        setScreenWidth,
-        screenHeight,
-        setScreenHeight,
+        gridWidth,
+        gridHeight,
         numberOfCells,
         setNumberOfCells,
         cellColors,
         setCellColors,
         calculateCells,
-        saveGridAsImage
+        saveGridAsImage,
+        choseGridHeight,
+        choseGridWidth,
+        handleResize
       }}
     >
       {children}

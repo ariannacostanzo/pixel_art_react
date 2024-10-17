@@ -10,23 +10,17 @@ const Grid = () => {
     numberOfCells,
     calculateCells,
     cellColors,
+    gridWidth,
+    gridHeight,
   } = useGrid();
   const { handleColoring, handleMouseDown, handleMouseUp, mode } = useColor();
-
-  //aggiorno continuamente i valori dello spazio a mia disposizione per la griglia
-//   useEffect(() => {
-//     window.addEventListener("resize", handleResize);
-//     return () => {
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, [screenWidth, screenHeight, cellWidth, cellHeight]);
 
   useEffect(() => {
     calculateCells();
   }, []);
 
-//modificare le celle, fare in modo che attraverso degli scaglioni ci sia un certo
-//numero fisso di celle, altrimenti i colori sono sempre sovrascritti
+  //modificare le celle, fare in modo che attraverso degli scaglioni ci sia un certo
+  //numero fisso di celle, altrimenti i colori sono sempre sovrascritti
 
   return (
     <>
@@ -38,9 +32,10 @@ const Grid = () => {
             mode === "color"
               ? "url('/brush.png') 16 16, auto"
               : "url('/eraser.png')16 16, auto",
-          // display: "grid",
-          // gridTemplateColumns: `repeat(auto-fill, minmax(${cellWidth}px, 1fr))`,
-          // gridTemplateRows: `repeat(auto-fill, minmax(${cellHeight}px, 1fr))`,
+          display: "grid",
+          gridTemplateColumns: `repeat(${gridWidth}, ${cellWidth}px)`,
+          gridTemplateRows: `repeat(${gridHeight}, ${cellHeight}px)`,
+          width: `calc(${gridWidth} * ${cellWidth}px)`,
         }}
       >
         {numberOfCells.map((_, i) => (
@@ -49,11 +44,15 @@ const Grid = () => {
             onMouseOver={() => {
               handleColoring(i);
             }}
+            onClick={() => {
+              handleColoring(i);
+            }}
             className="cell"
             style={{
               width: `${cellWidth}px`,
               height: `${cellHeight}px`,
               backgroundColor: cellColors[i],
+              // flexBasis: `calc(${gridWidth}px / ${cellWidth}px)`
             }}
           ></div>
         ))}

@@ -5,16 +5,52 @@ import { faEraser } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
 const Header = () => {
   const { choseColor, currentColor, clearCells, choseErasor, mode, chosePen } =
     useColor();
-  const {saveGridAsImage} = useGrid();
+  const { saveGridAsImage, choseGridWidth, choseGridHeight, handleResize } =
+    useGrid();
 
   return (
     <>
       <header>
         <h1 className="text-4xl uppercase font-bold">Pixel App</h1>
+        {/* cambia dimensioni griglia  */}
+        <div className="flex items-center gap-4 ">
+          <div className="text-end">
+            <div>
+              <label htmlFor="gridwidth">Larghezza griglia</label>
+              <input
+                type="number"
+                id="gridWidth"
+                onChange={choseGridWidth}
+                min="5"
+                max="300"
+                placeholder="10"
+              />
+            </div>
+            <div className="mt-2">
+              <label htmlFor="gridwidth">Altezza griglia</label>
+              <input
+                type="number"
+                id="gridWidth"
+                onChange={choseGridHeight}
+                min="5"
+                placeholder="10"
+                max="300"
+              />
+            </div>
+          </div>
+          <div onClick={handleResize}>
+            <Tooltip
+              icon={faPlus}
+              text="Genera griglia"
+              chosen="ignore"
+            ></Tooltip>
+          </div>
+        </div>
         <div className="flex gap-4 items-center">
           {/* salva  */}
           <div onClick={saveGridAsImage}>
@@ -31,7 +67,7 @@ const Header = () => {
           {/* modalità  */}
           <div className="px-4">
             Modalità:{" "}
-            <span className="text-[#1e211d] font-bold uppercase" >
+            <span className="text-[#1e211d] font-bold uppercase">
               {mode === "color" ? "Colora" : "Cancella"}
             </span>
           </div>

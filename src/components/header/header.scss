@@ -24,3 +24,11 @@ h1 {
     text-shadow: 1px 1px 1px var(--white);
     color: var(--pink);
 }
+
+input[type=number] {
+    margin-left: 10px;
+    border-radius: 10px;
+    width:80px;
+    color: var(--green);
+    padding-left: 10px;
+}

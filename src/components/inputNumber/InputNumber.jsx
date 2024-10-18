@@ -1,6 +1,9 @@
+import { useGrid } from '../../providers/GridContext';
 import './inputNumber.scss';
 
-const InputNumber = ({id, lab, func, min, max, placeholder}) => {
+const InputNumber = ({id, lab, func, placeholder}) => {
+
+  const {min, max} = useGrid();
      return (
        <>
          <label htmlFor={id}>{lab}</label>

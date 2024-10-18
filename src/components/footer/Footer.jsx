@@ -5,7 +5,7 @@ const Footer = () => {
        <>
          <footer>
            Made with &#10084; by{" "}
-           <a href="https://arianna-costanzo-portfolio.netlify.app">
+           <a target='_blank' href="https://arianna-costanzo-portfolio.netlify.app">
              Arianna Costanzo
            </a>
          </footer>

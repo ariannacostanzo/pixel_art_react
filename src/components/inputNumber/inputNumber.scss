@@ -1,8 +1,13 @@
-input[type=number] {
-    margin-left: 10px;
-    border-radius: 5px;
-    width:80px;
-    height: 25px;
-    color: var(--green);
-    padding-left: 10px;
+input[type="number"] {
+  margin: 5px 0;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  color: var(--green);
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+label {
+  font-size: 24px;
 }

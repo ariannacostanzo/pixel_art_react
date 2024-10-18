@@ -2,7 +2,12 @@ footer {
     text-align: center;
     margin-top: 2rem;
     border-top: 1px solid black;
-    padding-bottom: 1rem;
+    background-color: var(--light-pink);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
 
     a {
         text-decoration: underline;

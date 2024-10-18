@@ -5,10 +5,10 @@ const GridContext = createContext();
 
 const GridProvider = ({ children }) => {
   //logica creazione grid
-  const [cellDimension, setCellDimension] = useState(30); //era 40
+  const [cellDimension, setCellDimension] = useState(20); //era 40
   const [tempCellDimension, setTempCellDimension] = useState(cellDimension);
-  const [gridWidth, setGridWidth] = useState(40);
-  const [gridHeight, setGridHeight] = useState(23);
+  const [gridWidth, setGridWidth] = useState(70);
+  const [gridHeight, setGridHeight] = useState(35);
   const [tempGridWidth, setTempGridWidth] = useState(gridWidth);
   const [tempGridHeight, setTempGridHeight] = useState(gridHeight);
   const [numberOfCells, setNumberOfCells] = useState([]);
@@ -24,6 +24,7 @@ const GridProvider = ({ children }) => {
   }, [gridWidth, gridHeight]);
 
   const handleResize = () => {
+    // e.preventDefault();
     clearCells();
     setGridWidth(tempGridWidth);
     setGridHeight(tempGridHeight);

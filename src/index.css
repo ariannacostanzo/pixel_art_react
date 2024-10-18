@@ -4,8 +4,10 @@
 
 :root {
   --white: #f2f2ee;
+  --dark-white: #cccccb;
   --beige: #b1ab90;
   --pink: #a35b64;
+  --light-pink: #d8b3aa;
   --blue: #366fa5;
   --green: #141613;
   --dark-blue: #153655;
@@ -21,9 +23,8 @@ body {
     rgba(191, 236, 135, 1) 100%
   );
   background-repeat: repeat-x;
-  min-height: 86.8vh;
   overflow-x: hidden;
-  /* min-width: 100vw; */
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -40,4 +41,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--green);
+}
+
+h1 {
+    text-shadow: 1px 1px 1px var(--white);
+    color: var(--pink);
+    font-size: 40px;
+
+    span {
+        color: var(--green);
+    }
 }

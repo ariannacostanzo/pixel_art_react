@@ -16,25 +16,28 @@ const Header = () => {
     choseGridHeight,
     handleResize,
     clearCells,
-    choseCellDimension, min, max
+    choseCellDimension, 
   } = useGrid();
+
+  const sendForm = (e) => {
+    e.preventDefault();
+    handleResize();
+  }
 //levare la dimensione celle e non fare uscire dalla view
   return (
     <>
       <header>
-        <h1 className="text-4xl uppercase font-bold">
+        <h1 className="uppercase font-bold">
           Pixel Art <span>Canvas</span>
         </h1>
         {/* cambia dimensioni griglia  */}
-        <div className="flex items-center gap-4 shrink-0 mx-4">
+        {/* <form className="flex items-center gap-4 shrink-0 mx-4" onSubmit={sendForm}>
           <div className="text-end">
             <div>
               <InputNumber
                 id="gridWidth"
                 lab="Larghezza griglia"
                 func={choseGridWidth}
-                min={min}
-                max={max}
                 placeholder="40"
               ></InputNumber>
             </div>
@@ -43,9 +46,8 @@ const Header = () => {
                 id="gridHeight"
                 lab="Altezza griglia"
                 func={choseGridHeight}
-                min={min}
-                max={max}
                 placeholder="23"
+                
               ></InputNumber>
             </div>
             <div className="mt-1">
@@ -53,20 +55,18 @@ const Header = () => {
                 id="cellDimension"
                 lab="Dimensioni cella"
                 func={choseCellDimension}
-                min={min}
-                max={max}
                 placeholder="30"
               ></InputNumber>
             </div>
           </div>
-          <div onClick={handleResize}>
+          <button type="submit" >
             <Tooltip
               icon={faArrowsRotate}
               text="Rigenera griglia"
               chosen="ignore"
             ></Tooltip>
-          </div>
-        </div>
+          </button>
+        </form> */}
 
         <div className="flex gap-4 items-center shrink-0">
           {/* salva  */}

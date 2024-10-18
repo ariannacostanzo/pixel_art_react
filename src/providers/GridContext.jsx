@@ -95,7 +95,7 @@ const GridProvider = ({ children }) => {
     const context = canvas.getContext("2d");
 
     //ottengo le dimensioni della grigia
-    
+
     const totalColumns = gridWidth;
     const totalRows = gridHeight;
 
@@ -113,12 +113,63 @@ const GridProvider = ({ children }) => {
       context.fillRect(x, y, cellDimension, cellDimension);
     });
 
-    const image = canvas.toDataURL("image/png");
+    //ritaglio dove non ci sono celle
+
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    let top = totalRows * cellDimension,
+      bottom = 0,
+      left = totalColumns * cellDimension,
+      right = 0;
+
+    for (let y = 0; y < canvas.height; y++) {
+      for (let x = 0; x < canvas.width; x++) {
+        const index = (y * canvas.width + x) * 4;
+        const alpha = data[index + 3]; 
+        const red = data[index]; 
+        const green = data[index + 1]; 
+        const blue = data[index + 2]; 
+
+        // Controllo se il pixel è visibile e non è bianco
+        if (alpha > 0 && !(red === 255 && green === 255 && blue === 255)) {
+          top = Math.min(top, y);
+          bottom = Math.max(bottom, y);
+          left = Math.min(left, x);
+          right = Math.max(right, x);
+        }
+      }
+    }
+
+    // Calcolo le dimensioni del ritaglio
+    const croppedWidth = right - left + cellDimension; // Aggiungo la dimensione della cella per includere il bordo destro
+    const croppedHeight = bottom - top + cellDimension; // Aggiungo la dimensione della cella per includere il bordo in basso
+
+    // Creo un nuovo canvas per l'immagine ritagliata
+    const croppedCanvas = document.createElement("canvas");
+    croppedCanvas.width = croppedWidth;
+    croppedCanvas.height = croppedHeight;
+    const croppedCtx = croppedCanvas.getContext("2d");
+
+    // Disegno l'immagine ritagliata nel nuovo canvas
+    croppedCtx.drawImage(
+      canvas,
+      left,
+      top,
+      croppedWidth,
+      croppedHeight,
+      0,
+      0,
+      croppedWidth,
+      croppedHeight
+    );
+
+    const image = croppedCanvas.toDataURL("image/png");
 
     // Creo un link per scaricare l'immagine
     const link = document.createElement("a");
     link.href = image;
-    link.download = "grid-drawing.png"; // Nome del file salvato
+    link.download = "pixel-art-canvas-drawing.png"; 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -141,7 +192,7 @@ const GridProvider = ({ children }) => {
         choseCellDimension,
         min,
         max,
-        setCellColors
+        setCellColors,
       }}
     >
       {children}

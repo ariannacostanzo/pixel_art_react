@@ -94,10 +94,11 @@ const GridProvider = ({ children }) => {
     const context = canvas.getContext("2d");
 
     //ottengo le dimensioni della grigia
+    
     const totalColumns = gridWidth;
     const totalRows = gridHeight;
 
-    canvas.width = totalColumns * cellDimension;
+    canvas.width = window.innerWidth;
     canvas.height = totalRows * cellDimension;
 
     //disegno tutte le celle nel canvas

@@ -22,6 +22,7 @@ body {
   );
   background-repeat: repeat-x;
   min-height: 86.8vh;
+  overflow-x: hidden;
   /* min-width: 100vw; */
 }
 

@@ -18,7 +18,7 @@ const Header = () => {
     clearCells,
     choseCellDimension, min, max
   } = useGrid();
-
+//levare la dimensione celle e non fare uscire dalla view
   return (
     <>
       <header>

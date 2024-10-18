@@ -24,6 +24,8 @@ const Sidebar = () => {
   return (
     <>
       <div className={`sidebar ${isSidebarVisible ? "" : "hidden-sidebar"}`}>
+
+
         {/* linguetta  */}
         <div
           className="tab"
@@ -32,7 +34,10 @@ const Sidebar = () => {
           <FontAwesomeIcon
             icon={isSidebarVisible ? faChevronRight : faChevronLeft}
           ></FontAwesomeIcon>
+          <div className="differentTooltip">{isSidebarVisible ? 'chiudi menù' : 'apri menù'}</div>
         </div>
+
+
         {/* cambia dimensioni griglia  */}
         <form className=" my-4" onSubmit={sendForm}>
           <div className="text-center">

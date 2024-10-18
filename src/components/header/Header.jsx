@@ -6,23 +6,14 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "../tooltip/Tooltip.jsx";
-import InputNumber from "../inputNumber/InputNumber.jsx";
-import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   const { choseColor, currentColor, choseErasor, mode, chosePen } = useColor();
   const {
     saveGridAsImage,
-    choseGridWidth,
-    choseGridHeight,
-    handleResize,
     clearCells,
-    choseCellDimension, 
   } = useGrid();
 
-  const sendForm = (e) => {
-    e.preventDefault();
-    handleResize();
-  }
+  
 //levare la dimensione celle e non fare uscire dalla view
   return (
     <>
@@ -30,43 +21,7 @@ const Header = () => {
         <h1 className="uppercase font-bold">
           Pixel Art <span>Canvas</span>
         </h1>
-        {/* cambia dimensioni griglia  */}
-        {/* <form className="flex items-center gap-4 shrink-0 mx-4" onSubmit={sendForm}>
-          <div className="text-end">
-            <div>
-              <InputNumber
-                id="gridWidth"
-                lab="Larghezza griglia"
-                func={choseGridWidth}
-                placeholder="40"
-              ></InputNumber>
-            </div>
-            <div className="mt-1">
-              <InputNumber
-                id="gridHeight"
-                lab="Altezza griglia"
-                func={choseGridHeight}
-                placeholder="23"
-                
-              ></InputNumber>
-            </div>
-            <div className="mt-1">
-              <InputNumber
-                id="cellDimension"
-                lab="Dimensioni cella"
-                func={choseCellDimension}
-                placeholder="30"
-              ></InputNumber>
-            </div>
-          </div>
-          <button type="submit" >
-            <Tooltip
-              icon={faArrowsRotate}
-              text="Rigenera griglia"
-              chosen="ignore"
-            ></Tooltip>
-          </button>
-        </form> */}
+        
 
         <div className="flex gap-4 items-center shrink-0">
           {/* salva  */}
